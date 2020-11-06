@@ -1,0 +1,40 @@
+{
+  "fwPolicy": {
+    "rules": [
+      {
+        "protocol": "tcp",
+        "name": "tcpAllow",
+        "loggingEnabled": true,
+        "destination": {
+          "portLists": [
+            {
+              "use": "kubesPodPortList"
+            }
+          ]
+        },
+        "action": "accept"
+      },
+      {
+        "action": "drop",
+        "loggingEnabled": true,
+        "protocol": "any",
+        "name": "defaultDeny",
+        "source": {
+          "addressLists": [
+            {
+              "use": "fwDefaultDenyAddressList"
+            }
+          ]
+        }
+      }
+    ],
+    "class": "Firewall_Rule_List",
+    "fwRuleList": null
+  },
+  "kubesPodPortList": {
+    "class": "Firewall_Port_List",
+    "ports": [
+      "30000-32767"
+    ]
+  }
+}
